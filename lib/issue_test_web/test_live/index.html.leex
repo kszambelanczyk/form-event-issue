@@ -1,0 +1,42 @@
+<h1>Typy obiektów</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Schemable</th>
+      <th>Photoable</th>
+      <th>Parametable</th>
+      <th>Parentable</th>
+      <th>Mapable</th>
+      <th>Threatable</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <div>
+      <form phx-change="search-change">
+        <input type="text" name="search" value="<%= @search_list %>" placeholder="Search..." phx-debounce="500" />
+        <button type="button" phx-click="search-change" phx-value-search="">X</button>
+      </form>
+    </div>
+
+    <%= for object_type <- @object_types do %>
+      <tr>
+        <td><%= object_type.name %></td>
+        <td><%= object_type.description %></td>
+        <td><%= if object_type.schemable, do: "TAK", else: "-" %></td>
+        <td><%= if object_type.photoable, do: "TAK", else: "-" %></td>
+        <td><%= if object_type.parametable, do: "TAK", else: "-" %></td>
+        <td><%= if object_type.parentable, do: "TAK", else: "-" %></td>
+        <td><%= if object_type.mapable, do: "TAK", else: "-" %></td>
+        <td><%= if object_type.threatable, do: "TAK", else: "-" %></td>
+        <td>
+          <span><%= live_redirect "Show", to: Routes.test_show_path(@socket, :show, object_type) %></span>
+        </td>
+
+      </tr>
+    <% end %>
+  </tbody>
+</table>
